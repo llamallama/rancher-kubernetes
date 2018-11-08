@@ -1,0 +1,21 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Issuer
+metadata:
+  name: letsencrypt
+  namespace: default
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: chris@sysadminchris.com
+    privateKeySecretRef:
+      name: letsencrypt
+    http01: {}
+    dns01:
+      providers:
+        - name: route53
+          route53:
+            region: us-east-1
+            accessKeyID: AKIAJHYTML5A6X6NE4DQ
+            secretAccessKeySecretRef:
+              name: aws
+              key: rancherSecretKey
